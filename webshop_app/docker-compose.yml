@@ -1,0 +1,7 @@
+services:
+  juice-shop:
+    image: ${JUICE_SHOP_IMAGE:-bkimminich/juice-shop:v20.1.1}
+    container_name: juice-shop-demo
+    ports:
+      - "${JUICE_SHOP_PORT:-3000}:3000"
+    restart: unless-stopped

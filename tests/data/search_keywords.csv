@@ -1,0 +1,7 @@
+Test Case Description,Input,Expectation,Documentation
+Search apple should show 3 results,apple,3,Verify apple returns three visible product tiles.
+Search banana should show 1 result,banana,1,Verify banana returns one visible product tile.
+Empty search should show the full catalog,,16,Verify an empty search leaves the visible catalog unchanged.
+Search whitespace search should show the full catalog,"   ",16,Verify a whitespace-only search still shows the visible catalog.
+Search at sign should show one result,@,1,Verify a special-character search can still narrow the catalog.
+Search mango should show no results,mango,0,Verify mango shows the no-results message.
