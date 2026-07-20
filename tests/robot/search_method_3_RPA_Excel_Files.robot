@@ -24,6 +24,7 @@ Search Keywords From Excel With RPA Excel Files
 
 *** Keywords ***
 Search Every Excel Row
+    [Documentation]    Iterate through every worksheet row and verify the expected search result count.
     ${rows}=    Load Search Rows From Excel
     FOR    ${row}    IN    @{rows}
         ${input}=    Get From Dictionary    ${row}    Input
@@ -33,12 +34,14 @@ Search Every Excel Row
     END
 
 Load Search Rows From Excel
+    [Documentation]    Read all search rows from the configured workbook and return them as dictionaries.
     Open Workbook    ${SEARCH_EXCEL_FILE}
     ${rows}=    Read Worksheet    name=${SEARCH_WORKSHEET_NAME}    header=${TRUE}
     Close Workbook
     RETURN    ${rows}
 
 Normalize Search Input
+    [Documentation]    Convert missing cell values to an empty string before searching.
     [Arguments]    ${value}
     IF    $value is None    RETURN    ${EMPTY}
     RETURN    ${value}

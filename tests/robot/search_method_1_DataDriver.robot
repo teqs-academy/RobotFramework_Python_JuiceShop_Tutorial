@@ -21,6 +21,7 @@ Search for "${keyword}" should return ${amount_of_results} results
 
 *** Keywords ***
 Search Row Should Match
+    [Documentation]    Search for the provided keyword and verify the generated test row expectation.
     [Arguments]    ${keyword}
     ...    ${amount_of_results}
     Search Results Should Match    ${keyword}    ${amount_of_results}

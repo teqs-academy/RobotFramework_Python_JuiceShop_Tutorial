@@ -33,8 +33,8 @@ Anonymous Basket Shows Three Added Products
 
 Authenticated Basket Quantity Update Changes Total Price
     [Documentation]    Verify that a signed-in shopper can increase basket quantity and total price.
-    Prepare Logged In Basket With One Product
-    Basket Title Should Show Owner    ${LOGIN_ACCOUNT_EMAIL}
+    ${account_email}=    Prepare Logged In Basket With One Product
+    Basket Title Should Show Owner    ${account_email}
     Basket Should Show Product Quantity    1
     ${before_total}=    Read Basket Total Price In Cents
     ${unit_price}=    Read First Basket Item Price In Cents

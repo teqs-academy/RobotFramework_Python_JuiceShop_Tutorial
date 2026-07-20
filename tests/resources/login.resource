@@ -33,54 +33,61 @@ ${INVALID_ACCOUNT_PREFIX}                   invalid-
 
 *** Keywords ***
 Create Generated Account
-    Generate Account Credentials
+    [Documentation]    Generate credentials, register the account, verify success, and return the email address.
+    ${email}    ${password}=    Generate Account Credentials
     Open Registration Page
-    Fill Registration Form    ${LOGIN_ACCOUNT_EMAIL}    ${LOGIN_ACCOUNT_PASSWORD}
+    Fill Registration Form    ${email}    ${password}
     Submit Registration
     Registration Should Complete Successfully
+    RETURN    ${email}
 
 Login With Generated Account
-    Variable Should Exist    ${LOGIN_ACCOUNT_EMAIL}
-    Variable Should Exist    ${LOGIN_ACCOUNT_PASSWORD}
+    [Documentation]    Log in with the provided account credentials and then sign back out.
+    [Arguments]    ${email}
+    ...    ${password}
     Open Login Page
-    Submit Login Credentials    ${LOGIN_ACCOUNT_EMAIL}    ${LOGIN_ACCOUNT_PASSWORD}
+    Submit Login Credentials    ${email}    ${password}
     Successful Login Should Be Visible
     Logout If Signed In
 
 Login With Wrong Password Should Fail
-    Variable Should Exist    ${LOGIN_ACCOUNT_EMAIL}
-    Variable Should Exist    ${LOGIN_ACCOUNT_PASSWORD}
+    [Documentation]    Verify that the provided account rejects the configured invalid password.
+    [Arguments]    ${email}
     Open Login Page
-    Submit Login Credentials    ${LOGIN_ACCOUNT_EMAIL}    ${INVALID_ACCOUNT_PASSWORD}
+    Submit Login Credentials    ${email}    ${INVALID_ACCOUNT_PASSWORD}
     Failed Login Should Be Visible
     Account Menu Should Show Logged Out State
 
 Login With Wrong Username Should Fail
-    Variable Should Exist    ${LOGIN_ACCOUNT_EMAIL}
-    Variable Should Exist    ${LOGIN_ACCOUNT_PASSWORD}
-    ${wrong_email}=    Set Variable    ${INVALID_ACCOUNT_PREFIX}${LOGIN_ACCOUNT_EMAIL}
+    [Documentation]    Verify that the provided account rejects a modified invalid email address.
+    [Arguments]    ${email}
+    ...    ${password}
+    VAR    ${wrong_email}=    ${INVALID_ACCOUNT_PREFIX}${email}
     Open Login Page
-    Submit Login Credentials    ${wrong_email}    ${LOGIN_ACCOUNT_PASSWORD}
+    Submit Login Credentials    ${wrong_email}    ${password}
     Failed Login Should Be Visible
     Account Menu Should Show Logged Out State
 
 Generate Account Credentials
+    [Documentation]    Generate fresh account credentials for the login flow and return them.
     ${timestamp}=    Get Current Date    result_format=%H%M%S
-    ${email}=    Set Variable    ${ACCOUNT_PREFIX}${timestamp}@${ACCOUNT_DOMAIN}
-    Set Suite Variable    ${LOGIN_ACCOUNT_EMAIL}    ${email}
-    Set Suite Variable    ${LOGIN_ACCOUNT_PASSWORD}    ${DEFAULT_ACCOUNT_PASSWORD}
+    VAR    ${email}=    ${ACCOUNT_PREFIX}${timestamp}@${ACCOUNT_DOMAIN}
+    RETURN    ${email}    ${DEFAULT_ACCOUNT_PASSWORD}
 
 Open Login Page
+    [Documentation]    Open the login form from the account menu and wait for the email field.
     Ensure Account Menu Is Open
     Click    ${LOGIN_BUTTON_LOCATOR}
     Wait For Elements State    ${EMAIL_INPUT_LOCATOR}    visible    ${BROWSER_TIMEOUT}
 
 Open Registration Page
+    [Documentation]    Open the registration form from the login dialog.
     Open Login Page
     Click    ${REGISTER_LINK_LOCATOR}
     Wait For Elements State    ${REGISTER_EMAIL_INPUT_LOCATOR}    visible    ${BROWSER_TIMEOUT}
 
 Fill Registration Form
+    [Documentation]    Fill the registration form fields with the provided email and password.
     [Arguments]    ${email}
     ...    ${password}
     Fill Text    ${REGISTER_EMAIL_INPUT_LOCATOR}    ${email}
@@ -92,12 +99,15 @@ Fill Registration Form
     Fill Text    ${REGISTER_SECURITY_ANSWER_LOCATOR}    ${REGISTER_SECURITY_ANSWER}
 
 Submit Registration
+    [Documentation]    Submit the completed registration form.
     Click    ${REGISTER_SUBMIT_LOCATOR}
 
 Registration Should Complete Successfully
+    [Documentation]    Wait until the registration success message is visible.
     Wait For Elements State    ${REGISTER_SUCCESS_LOCATOR}    visible    ${BROWSER_TIMEOUT}
 
 Submit Login Credentials
+    [Documentation]    Fill the login form with the provided credentials and submit it.
     [Arguments]    ${email}
     ...    ${password}
     Fill Text    ${EMAIL_INPUT_LOCATOR}    ${email}
@@ -105,12 +115,15 @@ Submit Login Credentials
     Click    ${SUBMIT_LOGIN_LOCATOR}
 
 Successful Login Should Be Visible
+    [Documentation]    Retry until the account menu reflects a logged-in state.
     Wait Until Keyword Succeeds    10x    300ms    Account Menu Should Show Logged In State
 
 Failed Login Should Be Visible
+    [Documentation]    Wait until the invalid-credentials message is visible.
     Wait For Elements State    ${LOGIN_ERROR_LOCATOR}    visible    ${BROWSER_TIMEOUT}
 
 Logout If Signed In
+    [Documentation]    Log out when the account menu shows an authenticated session.
     Ensure Account Menu Is Open
     ${logout_count}=    Get Element Count    ${LOGOUT_BUTTON_LOCATOR}
     IF    ${logout_count} > 0
@@ -119,11 +132,13 @@ Logout If Signed In
     END
 
 Account Menu Should Show Logged In State
+    [Documentation]    Verify that the account menu exposes the logout action.
     Ensure Account Menu Is Open
     ${logout_count}=    Get Element Count    ${LOGOUT_BUTTON_LOCATOR}
     Should Be True    ${logout_count} > 0
 
 Account Menu Should Show Logged Out State
+    [Documentation]    Verify that the account menu exposes login and hides logout.
     Ensure Account Menu Is Open
     ${login_count}=    Get Element Count    ${LOGIN_BUTTON_LOCATOR}
     ${logout_count}=    Get Element Count    ${LOGOUT_BUTTON_LOCATOR}
@@ -131,14 +146,16 @@ Account Menu Should Show Logged Out State
     Should Be Equal As Integers    ${logout_count}    0
 
 Ensure Account Menu Is Open
+    [Documentation]    Open the account menu when its login and logout actions are not yet visible.
     ${login_count}=    Get Element Count    ${LOGIN_BUTTON_LOCATOR}
     ${logout_count}=    Get Element Count    ${LOGOUT_BUTTON_LOCATOR}
-    IF    ${login_count} == 0 and ${logout_count} == 0
+    IF    $login_count == 0 and $logout_count == 0
         Click    ${ACCOUNT_BUTTON_LOCATOR}
         Wait Until Keyword Succeeds    10x    300ms    Account Menu Should Contain Actions
     END
 
 Account Menu Should Contain Actions
+    [Documentation]    Verify that the account menu shows either login or logout actions.
     ${login_count}=    Get Element Count    ${LOGIN_BUTTON_LOCATOR}
     ${logout_count}=    Get Element Count    ${LOGOUT_BUTTON_LOCATOR}
     Should Be True    ${login_count} > 0 or ${logout_count} > 0

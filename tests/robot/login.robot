@@ -15,12 +15,15 @@ Create Account
 
 Login With Created Account
     [Documentation]    Log in with the account created by the prior test.
-    Login With Generated Account
+    ${email}=    Create Generated Account
+    Login With Generated Account    ${email}    ${DEFAULT_ACCOUNT_PASSWORD}
 
 Login With Wrong Password
     [Documentation]    Verify that the generated account rejects an invalid password.
-    Login With Wrong Password Should Fail
+    ${email}=    Create Generated Account
+    Login With Wrong Password Should Fail    ${email}
 
 Login With Wrong Username
     [Documentation]    Verify that the generated account rejects an invalid username.
-    Login With Wrong Username Should Fail
+    ${email}=    Create Generated Account
+    Login With Wrong Username Should Fail    ${email}    ${DEFAULT_ACCOUNT_PASSWORD}
