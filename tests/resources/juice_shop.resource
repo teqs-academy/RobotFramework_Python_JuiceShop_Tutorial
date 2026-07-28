@@ -1,7 +1,6 @@
 *** Settings ***
 Documentation       Central Juice Shop locators and reusable UI interactions.
 
-Library             Collections
 Library             String
 Library             Browser
 Resource            browser_setup.resource
@@ -16,10 +15,7 @@ ${SEARCH_INPUT_LOCATOR}                 css=app-mat-search-bar input:visible,
 ...                                     input[placeholder*="Search" i]:visible,
 ...                                     input[type="search"]:visible
 ${NO_RESULTS_LOCATOR}                   text=No results found
-${PRODUCT_IMAGE_LOCATOR}                css=mat-card:visible img
 ${FIRST_PRODUCT_IMAGE_LOCATOR}          css=mat-card:visible img >> nth=0
-${PRODUCT_NAME_LOCATOR}                 css=mat-card:visible .item-name, mat-card-title
-${ADD_TO_BASKET_LOCATOR}                css=button[aria-label*="Add to Basket"], button[mattooltip*="Add to Basket"]
 ${FIRST_ADD_TO_BASKET_LOCATOR}          css=button[aria-label*="Add to Basket"],
 ...                                     button[mattooltip*="Add to Basket"] >> nth=0
 ${BASKET_BUTTON_LOCATOR}                css=button[aria-label*="shopping cart"],

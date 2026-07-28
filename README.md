@@ -70,6 +70,9 @@ python -m robot --outputdir results --variable RECORD_VIDEO:True --variable HEAD
 
 # Check Robot formatting and style
 python -m robocop format --check tests
+
+# Automatically fix Robot formatting and style
+python -m robocop format
 ```
 
 When a test is finished, you can open `results/report.html` for the summary and `results/log.html` for keyword-level details.

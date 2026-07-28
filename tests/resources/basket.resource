@@ -7,7 +7,6 @@ Resource            login.resource
 
 
 *** Variables ***
-${FIRST_BASKET_ITEM_NAME_LOCATOR}           css=mat-row >> nth=0 >> css=.cdk-column-product
 ${FIRST_BASKET_ITEM_QUANTITY_LOCATOR}       css=mat-row >> nth=0 >> css=.cdk-column-quantity span.cell-initial-font
 ${FIRST_BASKET_ITEM_PRICE_LOCATOR}          css=mat-row >> nth=0 >> css=.cdk-column-price
 ${FIRST_BASKET_ITEM_PLUS_BUTTON_LOCATOR}    css=mat-row >> nth=0 >> css=.cdk-column-quantity button >> nth=1

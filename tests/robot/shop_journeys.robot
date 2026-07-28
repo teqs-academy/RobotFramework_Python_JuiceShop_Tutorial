@@ -2,8 +2,6 @@
 Documentation       UI-only Robot Framework demo coverage for OWASP Juice Shop.
 
 Resource            ../resources/juice_shop.resource
-Resource            ../resources/browser_setup.resource
-Resource            ../variables/environment.resource
 
 Test Setup          Open Shop Homepage
 Test Teardown       Handle Test Cleanup

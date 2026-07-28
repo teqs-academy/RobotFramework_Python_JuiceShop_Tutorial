@@ -2,7 +2,6 @@
 Documentation       Basket coverage for anonymous and authenticated OWASP Juice Shop shopping flows.
 
 Resource            ../resources/basket.resource
-Resource            ../resources/browser_setup.resource
 
 Test Setup          Open Shop Homepage
 Test Teardown       Handle Test Cleanup
