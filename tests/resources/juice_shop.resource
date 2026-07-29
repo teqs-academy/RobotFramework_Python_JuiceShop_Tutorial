@@ -57,9 +57,10 @@ Wait For Search State
     [Documentation]    Wait for the catalog heading that corresponds to the current search input state.
     [Arguments]    ${search_term}
     ${normalized_search_term}=    Strip String    ${search_term}
-    IF    $search_term == '' # Check for truly empty string
+    # Check for empty string. An empty string restores the full catalog. a whitespace-only string shows the search-results state.
+    IF    $search_term == ''
         Wait Until Shop Catalog Loads
-    ELSE IF    $normalized_search_term == '' # Check for whitespace-only string
+    ELSE IF    $normalized_search_term == ''
         Wait For Elements State    text=Search Results -    visible    ${BROWSER_TIMEOUT}
     ELSE
         Wait For Elements State    text=Search Results - ${normalized_search_term}    visible    ${BROWSER_TIMEOUT}

@@ -130,8 +130,9 @@ Read Basket Total Price In Cents
 Parse Price Text To Cents
     [Documentation]    Extract a decimal price from UI text and convert it to cents.
     [Arguments]    ${price_text}
-    ${normalized}=    Evaluate
-    ...    __import__("re").search(r"(\\d+[\\.,]\\d+|\\d+)", str($price_text)).group(1).replace(',', '.')
+    ${matches}=    Get Regexp Matches    ${price_text}    (\\d+[\\.,]\\d+|\\d+)    1
+    Should Not Be Empty    ${matches}
+    ${normalized}=    Replace String    ${matches}[0]    ,    .
     ${price_cents}=    Evaluate    int(round(float($normalized) * 100))
     RETURN    ${price_cents}
 

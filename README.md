@@ -20,11 +20,22 @@ Make sure you have:
 Clone and install the project
 
 ```bash
-git clone <repository-url>
-cd robot_framework_demo
-python -m pip install -e ".[dev]"
+git clone https://github.com/teqs-academy/RobotFramework_Python_JuiceShop_Tutorial
+cd RobotFramework_Python_JuiceShop_Tutorial
+python -m pip install -e .
 rfbrowser init
 ```
+
+`python -m pip install -e .` installs the Python dependencies.
+`rfbrowser init` sets up the Node and Playwright dependencies for the Browser Library.
+
+For development, static analysis and for formatting checks, you can optionally use the following:
+```bash
+python -m pip install -e ".[dev]"
+python -m robocop check tests
+python -m robocop format --check tests
+```
+
 
 Start the webshop container:
 
@@ -56,14 +67,14 @@ The webshop should now be available on: `http://127.0.0.1:3000`
 You can start tests with:
 
 ```bash
+# Run the introductory Homepage Smoke test
+python -m robot --outputdir results --test "Homepage Smoke" tests/robot/shop_journeys.robot
+
 # Run all suites
 python -m robot --outputdir results tests/robot
 
 # Run one suite
 python -m robot --outputdir results tests/robot/basket.robot
-
-# Run a single test case
-python -m robot --outputdir results --test "Homepage Smoke" tests/robot/shop_journeys.robot
 
 # Record a video of the tests
 python -m robot --outputdir results --variable RECORD_VIDEO:True --variable HEADLESS:False tests/robot

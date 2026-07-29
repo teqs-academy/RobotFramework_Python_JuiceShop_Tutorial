@@ -13,7 +13,7 @@ Create Account
     Create Generated Account
 
 Login With Created Account
-    [Documentation]    Log in with the account created by the prior test.
+    [Documentation]    Log in with a newly created account. Afterwards, log out.
     ${email}=    Create Generated Account
     Login With Generated Account    ${email}    ${DEFAULT_ACCOUNT_PASSWORD}
 
