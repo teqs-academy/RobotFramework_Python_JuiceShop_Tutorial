@@ -29,7 +29,7 @@ jobs:
         run: python -m robocop format --check tests
 
       - name: Lint Robot Framework style
-        run: python -m robocop check -s COM04 -s IMP01 -s LEN08 -s ORD01 -s ORD02 -s ORD03 -s SPC03 -s SPC04 -s SPC05 -s SPC12 -s SPC13 -s SPC18 tests
+        run: python -m robocop check tests
 
       - name: Initialize Browser library
         run: rfbrowser init
