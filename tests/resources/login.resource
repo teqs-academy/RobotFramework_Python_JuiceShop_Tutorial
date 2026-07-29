@@ -18,7 +18,7 @@ ${REGISTER_LINK_LOCATOR}                    css=a[href*="register"]
 ${REGISTER_EMAIL_INPUT_LOCATOR}             css=#emailControl
 ${REGISTER_PASSWORD_INPUT_LOCATOR}          css=#passwordControl
 ${REGISTER_REPEAT_PASSWORD_LOCATOR}         css=#repeatPasswordControl
-${REGISTER_SECURITY_QUESTION_LOCATOR}       css=#mat-select-1
+${REGISTER_SECURITY_QUESTION_LOCATOR}       css=mat-select[name="securityQuestion"]
 ${REGISTER_SECURITY_OPTION_LOCATOR}         css=[role="option"] >> nth=0
 ${REGISTER_SECURITY_ANSWER_LOCATOR}         css=#securityAnswerControl
 ${REGISTER_SUBMIT_LOCATOR}                  css=#registerButton

@@ -115,8 +115,8 @@ The pipeline:
 1. checks out the repository
 2. sets up Python
 3. installs the project dependencies
-4. initializes the Browser library and Playwright side
-5. validates the code with the Robot Style Guide
+4. validates the code with the Robot Style Guide
+5. initializes the Browser library and Playwright side
 6. starts Juice Shop with Docker Compose
 7. waits until the app is reachable
 8. runs the Robot UI suite directly
