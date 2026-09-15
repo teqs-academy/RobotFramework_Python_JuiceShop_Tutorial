@@ -96,6 +96,9 @@ Prepare Logged In Basket With One Product
     Open Login Page
     Submit Login Credentials    ${email}    ${DEFAULT_ACCOUNT_PASSWORD}
     Successful Login Should Be Visible
+    # Close the account menu that the login check opens; its transparent
+    # cdk-overlay-backdrop otherwise intercepts the next click
+    Keyboard Key    press    Escape
     Search For Product    ${SEARCH_TERM}
     Add First Visible Product To Basket
     Close Basket Snackbar If Present
